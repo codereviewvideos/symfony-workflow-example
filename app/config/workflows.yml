@@ -1,30 +1,111 @@
 framework:
     workflows:
         sales_lead:
-            type: workflow
-            supports:
-                - AppBundle\Entity\SalesLead
-            marking_store:
-                type: "multiple_state"
-                arguments:
-                    - "stage"
-            initial_place: capture_sales_lead
-            places:
-                - capture_sales_lead
-                - send_thank_you_email
-                - sales_call
-                - converted_lead
+            supports: stdClass # Just a hack
+            places: 
+                - potential_customer
+                - provided_basic_profile
+                - free_customer
+                - passport_approval
+                - manual_passport_review
+                - declined
+                - e
+                - f
+                - g
+                - h
+                - i
+                - j
+                - k
             transitions:
-                warm_welcome:
-                    from: capture_sales_lead
-                    to:
-                        - send_thank_you_email
-                        - sales_call
-
-                convert_from_thank_you_email:
-                    from: send_thank_you_email
-                    to: converted_lead
-
-                convert_from_sales_call:
-                    from: sales_call
-                    to: converted_lead
+                begin_registration:
+                    from: potential_customer
+                    to: provided_basic_profile
+                create_free_account:
+                    from: provided_basic_profile
+                    to: free_customer
+                add_passport:
+                    from: free_customer
+                    to: passport_approval
+                manual_passport_approval:
+                    from: passport_approval
+                    to: manual_passport_review
+#                t4:
+#                    from: b
+#                    to: e
+#                t5:
+#                    from: b
+#                    to: f
+                approve_passport:
+                    from: [passport_approval, manual_passport_review]
+                    to: [f, g]
+                declined_passport:
+                    from: manual_passport_review
+                    to: declined
+                t7:
+                    from: e
+                    to: h
+                t8:
+                    from: [e, g, i]
+                    to: h
+                t9:
+                    from: [f, g]
+                    to: [i, j]
+                t10:
+                    from: h
+                    to: k
+#            type: workflow
+#            supports:
+#                - AppBundle\Entity\SalesLead
+#            marking_store:
+#                type: "multiple_state"
+#                arguments:
+#                    - "stage"
+#            initial_place: begin_registration
+#            places:
+#                - begin_registration
+#                - submit_tax_information
+#                - approve_tax_information
+#                - submit_passport
+#                - automated_passport_approval
+#                - manual_passport_approval_needed
+#                - approve_passport
+#                - review_t_and_cs
+#                - accept_t_and_cs
+#                - add_to_mailing_list
+#                - send_welcome_email
+#                - declined
+#                - joined
+#            transitions:
+#                begin_registration:
+#                    from: begin_registration
+#                    to:
+#                        - submit_tax_information
+#                        - submit_passport
+#                        - review_t_and_cs
+#
+#                validate_tax_information:
+#                    from: submit_tax_information
+#                    to: approve_tax_information
+#
+#                # automated
+#                passport_approval:
+#                    from: submit_passport
+#                    to: approve_passport
+#                # requires manual passport approval
+#                passport_approval:
+#                    from: submit_passport
+#                    to: manual_passport_approval_needed
+#
+#                manually_approve_passport:
+#                    from: manual_passport_approval_needed
+#                    to: approve_passport
+#
+#                decline_application:
+#                    from: manual_passport_approval_needed
+#                    to: declined
+#
+#
+#                accept_new_member:
+#                    from:
+#                        - accept_t_and_cs
+#                        - approve_passport

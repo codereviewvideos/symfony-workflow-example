@@ -1,0 +1,57 @@
+digraph workflow {
+  ratio="compress" rankdir="LR"
+  node [fontsize="9" fontname="Arial" color="#333333" fillcolor="lightblue" fixedsize="1" width="1"];
+  edge [fontsize="9" fontname="Arial" color="#333333" arrowhead="normal" arrowsize="0.5"];
+
+  place_potential_customer [label="potential_customer", shape=circle, style="filled"];
+  place_provided_basic_profile [label="provided_basic_profile", shape=circle];
+  place_free_customer [label="free_customer", shape=circle];
+  place_passport_approval [label="passport_approval", shape=circle];
+  place_provided_passport [label="provided_passport", shape=circle];
+  place_manual_passport_review [label="manual_passport_review", shape=circle];
+  place_declined [label="declined", shape=circle];
+  place_e [label="e", shape=circle];
+  place_f [label="f", shape=circle];
+  place_g [label="g", shape=circle];
+  place_h [label="h", shape=circle];
+  place_i [label="i", shape=circle];
+  place_j [label="j", shape=circle];
+  place_k [label="k", shape=circle];
+  transition_begin_registration [label="begin_registration", shape=box, shape="box", regular="1"];
+  transition_create_free_account [label="create_free_account", shape=box, shape="box", regular="1"];
+  transition_add_passport [label="add_passport", shape=box, shape="box", regular="1"];
+  transition_manual_passport_approval [label="manual_passport_approval", shape=box, shape="box", regular="1"];
+  transition_approve_passport [label="approve_passport", shape=box, shape="box", regular="1"];
+  transition_declined_passport [label="declined_passport", shape=box, shape="box", regular="1"];
+  transition_t7 [label="t7", shape=box, shape="box", regular="1"];
+  transition_t8 [label="t8", shape=box, shape="box", regular="1"];
+  transition_t9 [label="t9", shape=box, shape="box", regular="1"];
+  transition_t10 [label="t10", shape=box, shape="box", regular="1"];
+  place_potential_customer -> transition_begin_registration [style="solid"];
+  transition_begin_registration -> place_provided_basic_profile [style="solid"];
+  place_provided_basic_profile -> transition_create_free_account [style="solid"];
+  transition_create_free_account -> place_free_customer [style="solid"];
+  place_free_customer -> transition_add_passport [style="solid"];
+  transition_add_passport -> place_passport_approval [style="solid"];
+  place_passport_approval -> transition_manual_passport_approval [style="solid"];
+  transition_manual_passport_approval -> place_manual_passport_review [style="solid"];
+  place_passport_approval -> transition_approve_passport [style="solid"];
+  place_manual_passport_review -> transition_approve_passport [style="solid"];
+  transition_approve_passport -> place_f [style="solid"];
+  transition_approve_passport -> place_g [style="solid"];
+  place_manual_passport_review -> transition_declined_passport [style="solid"];
+  transition_declined_passport -> place_declined [style="solid"];
+  place_e -> transition_t7 [style="solid"];
+  transition_t7 -> place_h [style="solid"];
+  place_e -> transition_t8 [style="solid"];
+  place_g -> transition_t8 [style="solid"];
+  place_i -> transition_t8 [style="solid"];
+  transition_t8 -> place_h [style="solid"];
+  place_f -> transition_t9 [style="solid"];
+  place_g -> transition_t9 [style="solid"];
+  transition_t9 -> place_i [style="solid"];
+  transition_t9 -> place_j [style="solid"];
+  place_h -> transition_t10 [style="solid"];
+  transition_t10 -> place_k [style="solid"];
+}
+
