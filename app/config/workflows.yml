@@ -15,6 +15,7 @@ framework:
                 - h
                 - i
                 - j
+                - created_card_token
                 - k
             transitions:
                 begin_registration:
@@ -29,18 +30,15 @@ framework:
                 manual_passport_approval:
                     from: passport_approval
                     to: manual_passport_review
-#                t4:
-#                    from: b
-#                    to: e
-#                t5:
-#                    from: b
-#                    to: f
                 approve_passport:
                     from: [passport_approval, manual_passport_review]
                     to: [f, g]
                 declined_passport:
                     from: manual_passport_review
                     to: declined
+                add_card_details:
+                    from: free_customer
+                    to: created_card_token
                 t7:
                     from: e
                     to: h

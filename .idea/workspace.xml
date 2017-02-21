@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="95331de9-8350-4661-8cb2-daa8fd087b9d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graph.png" afterPath="$PROJECT_DIR$/graph.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/workflows.yml" afterPath="$PROJECT_DIR$/app/config/workflows.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out.dot" afterPath="$PROJECT_DIR$/out.dot" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,8 +20,8 @@
       <file leaf-file-name="workflows.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/config/workflows.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-284">
-              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state relative-caret-position="237">
+              <caret line="17" column="36" lean-forward="false" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -706,12 +702,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1487605332083</updated>
-      <workItem from="1487605334054" duration="15972000" />
+      <workItem from="1487605334054" duration="16090000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15972000" />
+    <option name="totallyTimeSpent" value="16090000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="720" extended-state="0" />
@@ -986,8 +982,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/workflows.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-284">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state relative-caret-position="237">
+          <caret line="17" column="36" lean-forward="false" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
           <folding />
         </state>
       </provider>
