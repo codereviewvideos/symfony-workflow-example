@@ -1,0 +1,19 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    audit_trail_listener:
+        class: Symfony\Component\Workflow\EventListener\AuditTrailListener
+        arguments:
+            - "@logger"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    workflow.sales_lead.event_subscriber:
+        class: AppBundle\Event\Subscriber\SalesLeadSubscriber
+        arguments:
+            - "@workflow.sales_lead"
+        tags:
+            - { name: kernel.event_subscriber }

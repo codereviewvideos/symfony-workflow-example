@@ -1,0 +1,30 @@
+framework:
+    workflows:
+        sales_lead:
+            type: workflow
+            supports:
+                - AppBundle\Entity\SalesLead
+            marking_store:
+                type: "multiple_state"
+                arguments:
+                    - "stage"
+            initial_place: capture_sales_lead
+            places:
+                - capture_sales_lead
+                - send_thank_you_email
+                - sales_call
+                - converted_lead
+            transitions:
+                warm_welcome:
+                    from: capture_sales_lead
+                    to:
+                        - send_thank_you_email
+                        - sales_call
+
+                convert_from_thank_you_email:
+                    from: send_thank_you_email
+                    to: converted_lead
+
+                convert_from_sales_call:
+                    from: sales_call
+                    to: converted_lead
