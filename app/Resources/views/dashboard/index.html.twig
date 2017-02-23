@@ -18,6 +18,7 @@
         {% endfor %}
     </ul>
 
+    <hr />
 
     {% if workflow_has_marked_place(customer, constant('AppBundle\\Entity\\Customer::FREE_CUSTOMER')) %}
 
@@ -26,6 +27,18 @@
         <p><a href="{{ path('request_account_upgrade') }}">Request account upgrade</a></p>
 
     {% endif %}
+
+    <ul>
+        {% if workflow_has_marked_place(customer, 'awaiting_card_details') %}
+        <li><a href="{{ path('add_card_details') }}">Add Card Details</a></li>
+        {% endif %}
+        {% if workflow_has_marked_place(customer, 'card_details_awaiting_approval') %}
+            <li><i class="fa fa-question-circle"></i> Your card details are currently awaiting approval</li>
+        {% endif %}
+        {% if workflow_has_marked_place(customer, 'card_details_approved') %}
+            <li><i class="fa fa-check"></i> Your card details were approved!</li>
+        {% endif %}
+    </ul>
 
 
 {% endblock %}

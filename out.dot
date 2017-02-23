@@ -5,17 +5,25 @@ digraph workflow {
 
   place_prospect [label="prospect", shape=circle, style="filled"];
   place_free_customer [label="free_customer", shape=circle];
-  place_awaiting_passport [label="awaiting_passport", shape=circle];
   place_awaiting_card_details [label="awaiting_card_details", shape=circle];
+  place_awaiting_passport [label="awaiting_passport", shape=circle];
+  place_card_details_awaiting_approval [label="card_details_awaiting_approval", shape=circle];
+  place_card_details_approved [label="card_details_approved", shape=circle];
   place_paying_customer [label="paying_customer", shape=circle];
   transition_sign_up [label="sign_up", shape=box, shape="box", regular="1"];
   transition_request_account_upgrade [label="request_account_upgrade", shape=box, shape="box", regular="1"];
+  transition_add_card_details [label="add_card_details", shape=box, shape="box", regular="1"];
+  transition_approve_card_details [label="approve_card_details", shape=box, shape="box", regular="1"];
   transition_approve_vip [label="approve_vip", shape=box, shape="box", regular="1"];
   place_prospect -> transition_sign_up [style="solid"];
   transition_sign_up -> place_free_customer [style="solid"];
   place_free_customer -> transition_request_account_upgrade [style="solid"];
   transition_request_account_upgrade -> place_awaiting_passport [style="solid"];
   transition_request_account_upgrade -> place_awaiting_card_details [style="solid"];
+  place_awaiting_card_details -> transition_add_card_details [style="solid"];
+  transition_add_card_details -> place_card_details_awaiting_approval [style="solid"];
+  place_card_details_awaiting_approval -> transition_approve_card_details [style="solid"];
+  transition_approve_card_details -> place_card_details_approved [style="solid"];
   place_free_customer -> transition_approve_vip [style="solid"];
   transition_approve_vip -> place_paying_customer [style="solid"];
 }

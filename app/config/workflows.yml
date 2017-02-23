@@ -6,8 +6,10 @@ framework:
             places:
                 - prospect
                 - !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
-                - awaiting_passport
                 - awaiting_card_details
+                - awaiting_passport
+                - card_details_awaiting_approval
+                - card_details_approved
                 - paying_customer
             transitions:
                 sign_up:
@@ -18,6 +20,12 @@ framework:
                     to:
                         - awaiting_passport
                         - awaiting_card_details
+                add_card_details:
+                    from: awaiting_card_details
+                    to: card_details_awaiting_approval
+                approve_card_details:
+                    from: card_details_awaiting_approval
+                    to: card_details_approved
                 approve_vip:
                     from: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
                     to: paying_customer

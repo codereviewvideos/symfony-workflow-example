@@ -42,13 +42,13 @@ class CardDetailsReviewCommand extends ContainerAwareCommand
         $number = mt_rand(1,10);
 
         try {
-            if ($number < 9) {
+//            if ($number < 9) {
                 $workflow->apply($customer, 'approve_card_details');
                 $io->text(sprintf('User "%s" was approved.', $username));
-            } else {
-                $workflow->apply($customer, 'decline_card_details');
-                $io->warning(sprintf('User "%s" was declined.', $username));
-            }
+//            } else {
+//                $workflow->apply($customer, 'decline_card_details');
+//                $io->warning(sprintf('User "%s" was declined.', $username));
+//            }
         } catch (\LogicException $e) {
             $io->error(sprintf('Something went wrong: %s', $e->getMessage()));
 
