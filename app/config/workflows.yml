@@ -5,7 +5,7 @@ framework:
             initial_place: prospect
             places:
                 - prospect
-                - free_customer
+                - !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
                 - awaiting_passport
                 - awaiting_card_details
                 - card_details_awaiting_approval
@@ -18,11 +18,11 @@ framework:
             transitions:
                 sign_up:
                     from: prospect
-                    to: free_customer
+                    to: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
                 request_account_upgrade:
-                    from: free_customer
+                    from: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
                     to:
-                        - awaiting_passport
+                        - !php/const:AppBundle\Entity\Customer::AWAITING_PASSPORT
                         - awaiting_card_details
                 add_passport:
                     from: awaiting_passport
@@ -54,5 +54,5 @@ framework:
                         - card_details_approved
                     to: paying_customer
                 vip_approval:
-                    from: free_customer
+                    from: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
                     to: paying_customer

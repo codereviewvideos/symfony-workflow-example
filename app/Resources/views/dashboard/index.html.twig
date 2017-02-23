@@ -33,7 +33,7 @@
 
 
     <ul>
-        {% if workflow_has_marked_place(customer, 'awaiting_passport') %}
+        {% if workflow_has_marked_place(customer, constant('AppBundle\\Entity\\Customer::AWAITING_PASSPORT')) %}
             <li><a href="{{ path('add_passport') }}">Add Passport</a></li>
         {% endif %}
         {% if workflow_has_marked_place(customer, 'passport_awaiting_approval') %}
