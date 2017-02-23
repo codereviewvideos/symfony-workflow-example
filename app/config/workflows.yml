@@ -6,53 +6,11 @@ framework:
             places:
                 - prospect
                 - !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
-                - awaiting_passport
-                - awaiting_card_details
-                - card_details_awaiting_approval
-                - card_details_approved
-                - passport_awaiting_approval
-                - passport_approved
-                - manual_passport_review
-                - declined
                 - paying_customer
             transitions:
                 sign_up:
                     from: prospect
                     to: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
-                request_account_upgrade:
-                    from: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
-                    to:
-                        - !php/const:AppBundle\Entity\Customer::AWAITING_PASSPORT
-                        - awaiting_card_details
-                add_passport:
-                    from: awaiting_passport
-                    to: passport_awaiting_approval
-                require_manual_passport_approval:
-                    from: passport_awaiting_approval
-                    to: manual_passport_review
-                automated_passport_approval:
-                    from: passport_awaiting_approval
-                    to: passport_approved
-                manual_passport_approval:
-                    from: manual_passport_review
-                    to: passport_approved
-                decline_passport:
-                    from: manual_passport_review
-                    to: declined
-                add_card_details:
-                    from: awaiting_card_details
-                    to: card_details_awaiting_approval
-                decline_card_details:
-                    from: card_details_awaiting_approval
-                    to: declined
-                approve_card_details:
-                    from: card_details_awaiting_approval
-                    to: card_details_approved
-                upgrade_customer:
-                    from:
-                        - passport_approved
-                        - card_details_approved
-                    to: paying_customer
                 vip_approval:
                     from: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
                     to: paying_customer

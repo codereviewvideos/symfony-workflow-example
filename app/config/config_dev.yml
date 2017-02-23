@@ -13,9 +13,9 @@ web_profiler:
 
 monolog:
     handlers:
-        workflow_log:
+        app:
             type: stream
-            path: "%kernel.logs_dir%/%kernel.environment%-workflow.log"
+            path: "%kernel.logs_dir%/%kernel.environment%-app.log"
             level: debug
             channels: ['app']
         main:
