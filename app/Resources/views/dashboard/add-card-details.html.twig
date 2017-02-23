@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Add Card Details</h1>
+
+    <form action="{{ path('submit_card_details') }}" method="post">
+        <button type="submit">Submit Card Details</button>
+    </form>
+
+
+{% endblock %}
+

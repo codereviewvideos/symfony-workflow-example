@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% if passports_awaiting_review is empty %}
+        There are no passports awaiting manual review.
+    {% else %}
+    <ul>
+        {% for customer in passports_awaiting_review %}
+        <li>{{ customer.username }} - <a href="{{ path('manual_passport_approve', { id: customer.id }) }}">Approve!</a> : <a href="{{ path('manual_passport_decline', { id: customer.id }) }}">Decline</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+{% endblock %}
+

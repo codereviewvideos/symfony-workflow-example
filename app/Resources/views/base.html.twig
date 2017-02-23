@@ -5,9 +5,52 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ path('homepage') }}">Symfony Workflow Example</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    {% if app.user %}
+                    <p class="navbar-text navbar-right">Signed in as {{ app.user.username }}</p>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if not is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                        {% endif %}
+                        <li><a href="{{ logout_path('main') }}">Logout</a></li>
+                    </ul>
+                    {% else %}
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{{ path('customer_new') }}">Sign Up</a></li>
+                            <li><a href="{{ path('login') }}">Login</a></li>
+                        </ul>
+                    {% endif %}
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <div class="container">
+
+            {% block flash_messages %}
+                {% for type, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ type }} alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            {{ message | raw }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endblock %}
+
+            {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

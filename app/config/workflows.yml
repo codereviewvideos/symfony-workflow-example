@@ -1,109 +1,58 @@
 framework:
     workflows:
-        sales_lead:
-            supports: stdClass # Just a hack
-            places: 
-                - potential_customer
-                - provided_basic_profile
+        customer_signup:
+            supports: AppBundle\Entity\Customer
+            initial_place: prospect
+            places:
+                - prospect
                 - free_customer
-                - passport_approval
+                - awaiting_passport
+                - awaiting_card_details
+                - card_details_awaiting_approval
+                - card_details_approved
+                - passport_awaiting_approval
+                - passport_approved
                 - manual_passport_review
                 - declined
-                - e
-                - f
-                - g
-                - h
-                - i
-                - j
-                - created_card_token
-                - k
+                - paying_customer
             transitions:
-                begin_registration:
-                    from: potential_customer
-                    to: provided_basic_profile
-                create_free_account:
-                    from: provided_basic_profile
+                sign_up:
+                    from: prospect
                     to: free_customer
-                add_passport:
+                request_account_upgrade:
                     from: free_customer
-                    to: passport_approval
-                manual_passport_approval:
-                    from: passport_approval
+                    to:
+                        - awaiting_passport
+                        - awaiting_card_details
+                add_passport:
+                    from: awaiting_passport
+                    to: passport_awaiting_approval
+                require_manual_passport_approval:
+                    from: passport_awaiting_approval
                     to: manual_passport_review
-                approve_passport:
-                    from: [passport_approval, manual_passport_review]
-                    to: [f, g]
-                declined_passport:
+                automated_passport_approval:
+                    from: passport_awaiting_approval
+                    to: passport_approved
+                manual_passport_approval:
+                    from: manual_passport_review
+                    to: passport_approved
+                decline_passport:
                     from: manual_passport_review
                     to: declined
                 add_card_details:
+                    from: awaiting_card_details
+                    to: card_details_awaiting_approval
+                decline_card_details:
+                    from: card_details_awaiting_approval
+                    to: declined
+                approve_card_details:
+                    from: card_details_awaiting_approval
+                    to: card_details_approved
+                upgrade_customer:
+                    from:
+                        - passport_approved
+                        - card_details_approved
+                    to: paying_customer
+                vip_approval:
                     from: free_customer
-                    to: created_card_token
-                t7:
-                    from: e
-                    to: h
-                t8:
-                    from: [e, g, i]
-                    to: h
-                t9:
-                    from: [f, g]
-                    to: [i, j]
-                t10:
-                    from: h
-                    to: k
-#            type: workflow
-#            supports:
-#                - AppBundle\Entity\SalesLead
-#            marking_store:
-#                type: "multiple_state"
-#                arguments:
-#                    - "stage"
-#            initial_place: begin_registration
-#            places:
-#                - begin_registration
-#                - submit_tax_information
-#                - approve_tax_information
-#                - submit_passport
-#                - automated_passport_approval
-#                - manual_passport_approval_needed
-#                - approve_passport
-#                - review_t_and_cs
-#                - accept_t_and_cs
-#                - add_to_mailing_list
-#                - send_welcome_email
-#                - declined
-#                - joined
-#            transitions:
-#                begin_registration:
-#                    from: begin_registration
-#                    to:
-#                        - submit_tax_information
-#                        - submit_passport
-#                        - review_t_and_cs
-#
-#                validate_tax_information:
-#                    from: submit_tax_information
-#                    to: approve_tax_information
-#
-#                # automated
-#                passport_approval:
-#                    from: submit_passport
-#                    to: approve_passport
-#                # requires manual passport approval
-#                passport_approval:
-#                    from: submit_passport
-#                    to: manual_passport_approval_needed
-#
-#                manually_approve_passport:
-#                    from: manual_passport_approval_needed
-#                    to: approve_passport
-#
-#                decline_application:
-#                    from: manual_passport_approval_needed
-#                    to: declined
-#
-#
-#                accept_new_member:
-#                    from:
-#                        - accept_t_and_cs
-#                        - approve_passport
+                    to: paying_customer

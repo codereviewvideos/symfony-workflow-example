@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Add Passport</h1>
+
+    <form action="{{ path('submit_passport') }}" method="post">
+        <button type="submit">Submit Passport</button>
+    </form>
+
+
+{% endblock %}
+

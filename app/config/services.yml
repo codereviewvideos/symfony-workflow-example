@@ -11,9 +11,25 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    workflow.sales_lead.event_subscriber:
-        class: AppBundle\Event\Subscriber\SalesLeadSubscriber
+    auth.login_success_handler:
+        class: AppBundle\Security\LoginSuccessHandler
         arguments:
-            - "@workflow.sales_lead"
+            - "@router"
+            - "@security.authorization_checker"
+
+    workflow.customer_signup.guard_subscriber:
+        class: AppBundle\Event\Subscriber\BlockedCountriesGuard
+        arguments:
+            - "@logger"
+            - "@session.flash_bag"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    workflow.customer_signup.event_subscriber:
+        class: AppBundle\Event\Subscriber\UpgradeCustomerSubscriber
+        arguments:
+            - "@workflow.customer_signup"
+            - "@logger"
+            - "@doctrine.orm.entity_manager"
         tags:
             - { name: kernel.event_subscriber }

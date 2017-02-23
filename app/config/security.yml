@@ -2,10 +2,30 @@
 # http://symfony.com/doc/current/security.html
 security:
 
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER]
+
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+        AppBundle\Entity\Customer:
+            algorithm: bcrypt
+
     providers:
+        chain_provider:
+            chain:
+                providers: [in_memory, db_provider]
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    admin:
+                        password: $2y$13$zmM8YZUUDNjVC0ZadS0OC.mf3R/ABRtRc3u/hGEQ5jTKY3Ms6ntJC
+                        roles: 'ROLE_ADMIN'
+        db_provider:
+            entity:
+                class: AppBundle:Customer
+                property: username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,11 +34,17 @@ security:
             security: false
 
         main:
+            pattern: ^/
+            form_login:
+                login_path: login
+                check_path: login
+                success_handler: auth.login_success_handler
+            logout: true # accept the defaults
+            provider: chain_provider
             anonymous: ~
-            # activate different ways to authenticate
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/dashboard, role: ROLE_USER }
+        - { path: ^/passport-review, role: ROLE_ADMIN }
+        - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }

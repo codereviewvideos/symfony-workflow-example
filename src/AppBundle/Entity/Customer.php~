@@ -220,3 +220,4 @@ class Customer implements UserInterface, \Serializable
         ) = unserialize($serialized);
     }
 }
+

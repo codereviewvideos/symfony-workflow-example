@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Welcome {{ customer.username }}</h1>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent finibus rutrum lectus, non ultrices justo mollis nec. Praesent leo metus, ornare ac sapien at, viverra convallis mauris. Etiam tincidunt, urna id consectetur pellentesque, enim mauris gravida nisl, in varius magna nulla in eros. Nam in convallis dolor, et dapibus magna. Ut accumsan mattis vehicula. Phasellus cursus lacus nisi, ut iaculis mauris congue a. Mauris magna lorem, convallis quis ornare dignissim, volutpat vitae nunc. In efficitur tempor auctor.</p>
+
+    <br/>
+
+    <code>for transition in workflow_transitions(customer)</code>
+    {# Or loop through the enabled transitions #}
+    <ul>
+        {% for transition in workflow_transitions(customer) %}
+            <li><a href="...">{{ transition.name }}</a></li>
+        {% else %}
+            <li>No actions available.</li>
+        {% endfor %}
+    </ul>
+
+    <br/>
+
+    <p>However, you are more like to use:</p>
+
+    {% if workflow_has_marked_place(customer, 'free_customer') %}
+
+        <h3>Upgrade Your Account!</h3>
+
+        <p><a href="{{ path('request_account_upgrade') }}">Request Account Upgrade</a></p>
+    {% endif %}
+
+
+
+
+    <ul>
+        {% if workflow_has_marked_place(customer, 'awaiting_passport') %}
+            <li><a href="{{ path('add_passport') }}">Add Passport</a></li>
+        {% endif %}
+        {% if workflow_has_marked_place(customer, 'passport_awaiting_approval') %}
+            <li><i class="fa fa-question-circle"></i> Your passport is currently awaiting approval.</li>
+        {% endif %}
+        {% if workflow_has_marked_place(customer, 'passport_approved') %}
+            <li><i class="fa fa-check"></i> Your passport was approved!</li>
+        {% endif %}
+        {% if workflow_has_marked_place(customer, 'awaiting_card_details') %}
+            <li><a href="{{ path('add_card_details') }}">Add Card Details</a></li>
+        {% endif %}
+        {% if workflow_has_marked_place(customer, 'card_details_awaiting_approval') %}
+            <li><i class="fa fa-question-circle"></i> Your card details are currently awaiting approval.</li>
+        {% endif %}
+        {% if workflow_has_marked_place(customer, 'card_details_approved') %}
+            <li><i class="fa fa-check"></i> Your card details were approved!</li>
+        {% endif %}
+    </ul>
+
+    {% if workflow_can(customer, 'upgrade_customer') %}
+    <a href="{{ path('upgrade_account') }}" class="btn btn-success btn-lg">Upgrade my account!</a>
+    {% endif %}
+
+{% endblock %}
+
