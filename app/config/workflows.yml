@@ -6,11 +6,18 @@ framework:
             places:
                 - prospect
                 - !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
+                - awaiting_passport
+                - awaiting_card_details
                 - paying_customer
             transitions:
                 sign_up:
                     from: prospect
                     to: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
-                vip_approval:
+                request_account_upgrade:
+                    from: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
+                    to:
+                        - awaiting_passport
+                        - awaiting_card_details
+                approve_vip:
                     from: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
                     to: paying_customer

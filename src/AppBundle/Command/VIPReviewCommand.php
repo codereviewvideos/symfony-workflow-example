@@ -41,7 +41,7 @@ class VIPReviewCommand extends ContainerAwareCommand
 
         try {
 
-            $workflow->apply($customer, 'vip_approval');
+            $workflow->apply($customer, 'approve_vip');
             $io->text(sprintf('User "%s" was VIP approved.', $username));
 
         } catch (\LogicException $e) {

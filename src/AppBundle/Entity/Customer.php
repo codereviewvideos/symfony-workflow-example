@@ -14,8 +14,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class Customer implements UserInterface, \Serializable
 {
     const FREE_CUSTOMER = 'free_customer';
-    const AWAITING_PASSPORT = 'awaiting_passport';
-
 
     /**
      * @var int
