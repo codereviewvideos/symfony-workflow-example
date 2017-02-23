@@ -74,7 +74,7 @@ class CustomerController extends Controller
             $this->get('security.token_storage')->setToken($token);
             $this->get('session')->set('_security_main', serialize($token));
 
-            return $this->redirectToRoute('customer_show', array('id' => $customer->getId()));
+            return $this->redirectToRoute('dashboard');
         }
 
         return $this->render('customer/new.html.twig', array(
