@@ -10,7 +10,11 @@ framework:
                 - awaiting_passport
                 - card_details_awaiting_approval
                 - card_details_approved
+                - passport_awaiting_approval
+                - manual_passport_review
+                - passport_approved
                 - paying_customer
+                - declined
             transitions:
                 sign_up:
                     from: prospect
@@ -26,6 +30,29 @@ framework:
                 approve_card_details:
                     from: card_details_awaiting_approval
                     to: card_details_approved
+                decline_card_details:
+                    from: card_details_awaiting_approval
+                    to: declined
+                add_passport:
+                    from: awaiting_passport
+                    to: passport_awaiting_approval
+                automated_passport_approval:
+                    from: passport_awaiting_approval
+                    to: passport_approved
+                require_manual_passport_approval:
+                    from: passport_awaiting_approval
+                    to: manual_passport_review
+                manual_passport_approval:
+                    from: manual_passport_review
+                    to: passport_approved
+                decline_passport:
+                    from: manual_passport_review
+                    to: declined
+                upgrade_customer:
+                    from:
+                        - passport_approved
+                        - card_details_approved
+                    to: paying_customer
                 approve_vip:
                     from: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
                     to: paying_customer

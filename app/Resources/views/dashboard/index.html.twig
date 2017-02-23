@@ -38,7 +38,22 @@
         {% if workflow_has_marked_place(customer, 'card_details_approved') %}
             <li><i class="fa fa-check"></i> Your card details were approved!</li>
         {% endif %}
+
+        {% if workflow_has_marked_place(customer, 'awaiting_passport') %}
+            <li><a href="{{ path('add_passport') }}">Add Passport</a></li>
+        {% endif %}
+        {% if workflow_has_marked_place(customer, 'passport_awaiting_approval') %}
+            <li><i class="fa fa-question-circle"></i> Your passport is currently awaiting approval</li>
+        {% endif %}
+        {% if workflow_has_marked_place(customer, 'passport_approved') %}
+            <li><i class="fa fa-check"></i> Your passport was approved!</li>
+        {% endif %}
     </ul>
+
+
+    {% if workflow_can(customer, 'upgrade_customer') %}
+    <a href="{{ path('upgrade_account') }}" class="btn btn-success btn-lg">Upgrade My Account!</a>
+    {% endif %}
 
 
 {% endblock %}
