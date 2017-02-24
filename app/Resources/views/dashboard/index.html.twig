@@ -8,17 +8,17 @@
 
     <br/>
 
-    <code>for transition in workflow_transitions(customer)</code>
-    {# Or loop through the enabled transitions #}
-    <ul>
-        {% for transition in workflow_transitions(customer) %}
-            <li><a href="...">{{ transition.name }}</a></li>
-        {% else %}
-            <li>No actions available.</li>
-        {% endfor %}
-    </ul>
+    {#<code>for transition in workflow_transitions(customer)</code>#}
+     {#Or loop through the enabled transitions#}
+    {#<ul>#}
+        {#{% for transition in workflow_transitions(customer) %}#}
+            {#<li><a href="...">{{ transition.name }}</a></li>#}
+        {#{% else %}#}
+            {#<li>No actions available.</li>#}
+        {#{% endfor %}#}
+    {#</ul>#}
 
-    <hr />
+    {#<hr />#}
 
     {% if workflow_has_marked_place(customer, constant('AppBundle\\Entity\\Customer::FREE_CUSTOMER')) %}
 
@@ -51,9 +51,9 @@
     </ul>
 
 
-    {% if workflow_can(customer, 'upgrade_customer') %}
-    <a href="{{ path('upgrade_account') }}" class="btn btn-success btn-lg">Upgrade My Account!</a>
-    {% endif %}
+    {#{% if workflow_can(customer, 'upgrade_customer') %}#}
+    {#<a href="{{ path('upgrade_account') }}" class="btn btn-success btn-lg">Upgrade My Account!</a>#}
+    {#{% endif %}#}
 
 
 {% endblock %}
