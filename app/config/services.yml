@@ -24,3 +24,13 @@ services:
             - "@security.authorization_checker"
         tags:
             - { name: kernel.event_subscriber }
+
+
+    workflow.customer_signup.upgrade_customer_subscriber:
+        class: AppBundle\Event\Subscriber\UpgradeCustomerSubscriber
+        arguments:
+            - "@workflow.customer_signup"
+            - "@logger"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: kernel.event_subscriber }

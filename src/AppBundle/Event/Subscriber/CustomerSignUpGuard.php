@@ -30,9 +30,9 @@ class CustomerSignUpGuard implements EventSubscriberInterface
     {
 //        $this->flashBag->set('info', 'onTransitionRequest was called!');
 
-        if ($this->authorizationChecker->isGranted('ROLE_USER') === false) {
-            $event->setBlocked(true);
-        }
+//        if ($this->authorizationChecker->isGranted('ROLE_USER') === false) {
+//            $event->setBlocked(true);
+//        }
     }
 
     public function guardAgainstBlockedCountries(GuardEvent $event)
