@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\CustomerType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Workflow\Exception\LogicException;
 
 /**
  * Customer controller.
@@ -56,10 +57,22 @@ class CustomerController extends Controller
 
             $customer->setPassword($password);
 
-            $this->get('workflow.customer_signup')->apply(
-                $customer,
-                'sign_up'
-            );
+            try {
+
+                $this->get('workflow.customer_signup')->apply(
+                    $customer,
+                    'sign_up'
+                );
+
+            } catch (LogicException $e) {
+
+                $this->addFlash('danger', sprintf('No that did not work: %s', $e->getMessage()));
+
+                $this->get('logger')->error('Yikes!', ['error' => $e->getMessage()]);
+
+                return $this->redirectToRoute('customer_new');
+
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($customer);
