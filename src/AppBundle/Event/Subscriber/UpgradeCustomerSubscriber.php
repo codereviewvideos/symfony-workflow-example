@@ -148,7 +148,7 @@ class UpgradeCustomerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'workflow.customer_signup.leave' => 'onLeave',
+            'workflow.leave' => 'onLeave',
             'workflow.customer_signup.transition' => 'onTransition',
             'workflow.customer_signup.entered' => 'onEntered',
             'workflow.customer_signup.enter' => [
@@ -162,6 +162,21 @@ class UpgradeCustomerSubscriber implements EventSubscriberInterface
             'workflow.customer_signup.announce.request_account_upgrade' => 'onAnnounceRAU',
             'workflow.customer_signup.announce.approve_vip' => 'onAnnounceAV',
             'workflow.customer_signup.announce.add_card_details' => 'onAnnounce',
+
+
+            'workflow.customer_signup.leave' => array('onLeaveCustomerSignup'),
+            'workflow.customer_signup.leave.prospect' => array('onLeaveCustomerSignupLeaveSignUp'),
         );
+    }
+
+
+    public function onLeaveCustomerSignup(Event $event)
+    {
+        $this->logger->info('Leaving in customer signup workflow');
+    }
+
+    public function onLeaveCustomerSignupLeaveSignUp(Event $event)
+    {
+        $this->logger->info('Leaving sign_up in customer signup workflow');
     }
 }

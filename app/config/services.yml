@@ -4,12 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-    audit_trail_listener:
-        class: Symfony\Component\Workflow\EventListener\AuditTrailListener
-        arguments:
-            - "@logger"
-        tags:
-            - { name: kernel.event_subscriber }
 
     auth.login_success_handler:
         class: AppBundle\Security\LoginSuccessHandler
