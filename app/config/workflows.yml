@@ -19,7 +19,8 @@ framework:
                 sign_up:
                     from: prospect
                     to: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
-                    guard: subject.getCountry() not in ["AQ"]
+#                    guard: subject.getCountry() not in ["AQ"]
+                    guard: true === true
                 request_account_upgrade:
                     from: !php/const:AppBundle\Entity\Customer::FREE_CUSTOMER
                     to:

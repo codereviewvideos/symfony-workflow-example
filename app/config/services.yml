@@ -11,13 +11,13 @@ services:
             - "@router"
             - "@security.authorization_checker"
 
-#    workflow.customer_signup.guard.customer_signup_guard:
-#        class: AppBundle\Event\Subscriber\CustomerSignUpGuard
-#        arguments:
-#            - "@session.flash_bag"
-#            - "@security.authorization_checker"
-#        tags:
-#            - { name: kernel.event_subscriber }
+    workflow.customer_signup.guard.customer_signup_guard:
+        class: AppBundle\Event\Subscriber\CustomerSignUpGuard
+        arguments:
+            - "@session.flash_bag"
+            - "@security.authorization_checker"
+        tags:
+            - { name: kernel.event_subscriber }
 
 
     workflow.customer_signup.upgrade_customer_subscriber:
